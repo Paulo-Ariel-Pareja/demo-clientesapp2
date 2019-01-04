@@ -1,0 +1,47 @@
+<app-detalle *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></app-detalle>
+<div class="card border-dark mb-3 my-2">
+    <div class="card-header">Clientes</div>
+    <div class="card-body text-dark">
+      <h5 class="card-title">Listado de clientes</h5>
+      <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink] = "['/clientes/form']">Crear cliente</button>
+      </div>
+      <div *ngIf="clientes?.length==0" class="alert alert-info">
+        No hay registros en la base de datos!
+      </div>
+      <table class="table table-striped table-bordered" *ngIf="clientes?.length>0">
+        <thead>
+          <tr>
+            <th>Perfil</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Fecha</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of clientes">
+            <td>
+              <img (click)="abrirModal(item)" *ngIf="item?.foto" src="http://localhost:8080/api/uploads/img/{{ item.foto }}" alt="{{ item.foto }}"
+              class="img-thumbnail rounded" style="width:64px; cursor:pointer">
+              <img (click)="abrirModal(item)" *ngIf="!item?.foto" src="http://localhost:8080/images/no-profile.png" alt="Sin foto"
+              class="img-thumbnail rounded" style="width:64px; cursor:pointer">
+            </td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.apellido }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.createAt }}</td>
+            <td>
+              <button type="button" name="button" [routerLink] = "['/clientes/form', item.id]" class="btn btn-primary btn-sm">Editar</button>
+            </td>
+            <td>
+              <button type="button" name="eliminar" (click)='delete(item)' class="btn btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <app-paginator *ngIf="paginador" [paginador] = "paginador"></app-paginator>
+    </div>
+  </div>
