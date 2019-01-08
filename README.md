@@ -1,2 +1,3 @@
 # demo-clientesapp2
-demo front angular
+Front end para api rest "clientes" de prueba
+By Paulo Ariel Pareja & ADN Developer Software
